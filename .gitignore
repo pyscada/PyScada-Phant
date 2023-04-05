@@ -1,3 +1,4 @@
 *.pyc
 /build/*
 /pyscada_phant.egg-info/*
+/.idea/*
