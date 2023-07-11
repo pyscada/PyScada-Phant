@@ -20,7 +20,10 @@ class PhantDeviceAdminInline(admin.StackedInline):
 
 
 class PhantDeviceAdmin(DeviceAdmin):
-    list_display = DeviceAdmin.list_display + ('public_key', 'private_key',)
+    list_display = DeviceAdmin.list_display + (
+        "public_key",
+        "private_key",
+    )
 
     def public_key(self, instance):
         return instance.phantdevice.public_key
@@ -29,25 +32,28 @@ class PhantDeviceAdmin(DeviceAdmin):
         return instance.phantdevice.private_key
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == 'protocol':
-            kwargs['queryset'] = DeviceProtocol.objects.filter(pk=PROTOCOL_ID)
+        if db_field.name == "protocol":
+            kwargs["queryset"] = DeviceProtocol.objects.filter(pk=PROTOCOL_ID)
             db_field.default = PROTOCOL_ID
-        return super(PhantDeviceAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+        return super(PhantDeviceAdmin, self).formfield_for_foreignkey(
+            db_field, request, **kwargs
+        )
 
     def get_queryset(self, request):
         """Limit Pages to those that belong to the request's user."""
         qs = super(PhantDeviceAdmin, self).get_queryset(request)
         return qs.filter(protocol_id=PROTOCOL_ID)
 
-    inlines = [
-        PhantDeviceAdminInline
-    ]
+    inlines = [PhantDeviceAdminInline]
+
 
 class PhantVariableAdmin(CoreVariableAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == 'device':
-            kwargs['queryset'] = Device.objects.filter(protocol=PROTOCOL_ID)
-        return super(PhantVariableAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+        if db_field.name == "device":
+            kwargs["queryset"] = Device.objects.filter(protocol=PROTOCOL_ID)
+        return super(PhantVariableAdmin, self).formfield_for_foreignkey(
+            db_field, request, **kwargs
+        )
 
     def get_queryset(self, request):
         """Limit Pages to those that belong to the request's user."""

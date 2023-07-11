@@ -20,23 +20,25 @@ def phant_input(request, public_key=None, json_response=False):
     def do_response(success, message):
         if json_response:
             jdata = json.dumps({"success": success, "message": message}, indent=2)
-            return HttpResponse(jdata, content_type='application/json')
+            return HttpResponse(jdata, content_type="application/json")
         else:
-            return HttpResponse('%s %s' % ('1' if success else '0', message), content_type='text/plain')
+            return HttpResponse(
+                "%s %s" % ("1" if success else "0", message), content_type="text/plain"
+            )
 
     if False:
         # read values and private key from jsonp
         return do_response(False, "not implemented")
-    elif 'private_key' in request.POST:
+    elif "private_key" in request.POST:
         # stream is post
-        private_key = request.POST.get('private_key')
+        private_key = request.POST.get("private_key")
         values = request.POST.dict()
-    elif 'HTTP_PHANT_PRIVATE_KEY' in request.META:
-        private_key = request.META['HTTP_PHANT_PRIVATE_KEY']
+    elif "HTTP_PHANT_PRIVATE_KEY" in request.META:
+        private_key = request.META["HTTP_PHANT_PRIVATE_KEY"]
         values = request.POST.dict()
-    elif 'private_key' in request.GET:
+    elif "private_key" in request.GET:
         # stream is get
-        private_key = request.GET.get('private_key')
+        private_key = request.GET.get("private_key")
         values = request.GET.dict()
     else:
         return do_response(False, "not a valid request")
@@ -44,11 +46,11 @@ def phant_input(request, public_key=None, json_response=False):
     try:
         device = PhantDevice.objects.get(public_key=public_key)
     except:
-        return do_response(False, 'public key not valid')
+        return do_response(False, "public key not valid")
 
     # validate private key, validate values and write to RecordedData
     if not device.private_key == private_key:
-        return do_response(False, 'wrong private key')
+        return do_response(False, "wrong private key")
     # prepare the values for writing
     # todo what to do with the cov value
     output = []
@@ -59,7 +61,7 @@ def phant_input(request, public_key=None, json_response=False):
             values[item.name] = extract_numbers_from_str(values[item.name])
         # get prev_value from DB
         item.query_prev_value()
-        # 
+        #
         if item.update_value(values[item.name], timestamp):
             output.append(item.create_recorded_data_element())
 
@@ -68,4 +70,4 @@ def phant_input(request, public_key=None, json_response=False):
             r.date_saved = now()
         RecordedData.objects.bulk_create(output)
 
-    return do_response(True, 'success')
+    return do_response(True, "success")

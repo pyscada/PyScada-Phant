@@ -7,21 +7,39 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('pyscada', '0031_delete_variableconfigfileimport'),
+        ("pyscada", "0031_delete_variableconfigfileimport"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PhantDevice',
+            name="PhantDevice",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('public_key', models.CharField(default='....................', max_length=20)),
-                ('private_key', models.CharField(default='....................', max_length=20)),
-                ('phant_device', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='pyscada.Device')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "public_key",
+                    models.CharField(default="....................", max_length=20),
+                ),
+                (
+                    "private_key",
+                    models.CharField(default="....................", max_length=20),
+                ),
+                (
+                    "phant_device",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE, to="pyscada.Device"
+                    ),
+                ),
             ],
         ),
     ]

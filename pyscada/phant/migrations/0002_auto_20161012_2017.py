@@ -6,15 +6,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('phant', '0001_initial'),
+        ("phant", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='phantdevice',
-            name='public_key',
-            field=models.SlugField(default='....................', max_length=20, unique=True),
+            model_name="phantdevice",
+            name="public_key",
+            field=models.SlugField(
+                default="....................", max_length=20, unique=True
+            ),
         ),
     ]

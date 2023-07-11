@@ -6,35 +6,32 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('pyscada', '0041_update_protocol_id'),
-        ('phant', '0003_auto_20170225_0908'),
+        ("pyscada", "0041_update_protocol_id"),
+        ("phant", "0003_auto_20170225_0908"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ExtendedPhantDevice',
-            fields=[
-            ],
+            name="ExtendedPhantDevice",
+            fields=[],
             options={
-                'verbose_name': 'Phant Device',
-                'proxy': True,
-                'verbose_name_plural': 'Phant Devices',
-                'indexes': [],
+                "verbose_name": "Phant Device",
+                "proxy": True,
+                "verbose_name_plural": "Phant Devices",
+                "indexes": [],
             },
-            bases=('pyscada.device',),
+            bases=("pyscada.device",),
         ),
         migrations.CreateModel(
-            name='ExtendedPhantVariable',
-            fields=[
-            ],
+            name="ExtendedPhantVariable",
+            fields=[],
             options={
-                'verbose_name': 'Phant Variable',
-                'proxy': True,
-                'verbose_name_plural': 'Phant Variables',
-                'indexes': [],
+                "verbose_name": "Phant Variable",
+                "proxy": True,
+                "verbose_name_plural": "Phant Variables",
+                "indexes": [],
             },
-            bases=('pyscada.variable',),
+            bases=("pyscada.variable",),
         ),
     ]

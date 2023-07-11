@@ -7,20 +7,23 @@ import pyscada.phant.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('phant', '0002_auto_20161012_2017'),
+        ("phant", "0002_auto_20161012_2017"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='phantdevice',
-            name='private_key',
-            field=models.CharField(default=pyscada.phant.models.gen_random_key, max_length=20),
+            model_name="phantdevice",
+            name="private_key",
+            field=models.CharField(
+                default=pyscada.phant.models.gen_random_key, max_length=20
+            ),
         ),
         migrations.AlterField(
-            model_name='phantdevice',
-            name='public_key',
-            field=models.SlugField(default=pyscada.phant.models.gen_random_key, max_length=20, unique=True),
+            model_name="phantdevice",
+            name="public_key",
+            field=models.SlugField(
+                default=pyscada.phant.models.gen_random_key, max_length=20, unique=True
+            ),
         ),
     ]

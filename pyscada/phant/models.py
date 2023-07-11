@@ -15,7 +15,9 @@ logger = logging.getLogger(__name__)
 
 def gen_random_key(n=20):
     # todo avoid collisions on public_key field
-    return ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase) for _ in range(n))
+    return "".join(
+        random.choice(string.ascii_uppercase + string.ascii_lowercase) for _ in range(n)
+    )
 
 
 class PhantDevice(models.Model):
@@ -38,12 +40,12 @@ class PhantDevice(models.Model):
 class ExtendedPhantDevice(Device):
     class Meta:
         proxy = True
-        verbose_name = 'Phant Device'
-        verbose_name_plural = 'Phant Devices'
+        verbose_name = "Phant Device"
+        verbose_name_plural = "Phant Devices"
 
 
 class ExtendedPhantVariable(Variable):
     class Meta:
         proxy = True
-        verbose_name = 'Phant Variable'
-        verbose_name_plural = 'Phant Variables'
+        verbose_name = "Phant Variable"
+        verbose_name_plural = "Phant Variables"
