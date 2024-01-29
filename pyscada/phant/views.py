@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from pyscada.models import RecordedData
+from pyscada.models import Variable
 from pyscada.phant.models import PhantDevice
 from pyscada.utils import extract_numbers_from_str
 
@@ -48,7 +48,7 @@ def phant_input(request, public_key=None, json_response=False):
     except:
         return do_response(False, "public key not valid")
 
-    # validate private key, validate values and write to RecordedData
+    # validate private key, validate values and write to Variable
     if not device.private_key == private_key:
         return do_response(False, "wrong private key")
     # prepare the values for writing
@@ -62,12 +62,10 @@ def phant_input(request, public_key=None, json_response=False):
         # get prev_value from DB
         item.query_prev_value()
         #
-        if item.update_value(values[item.name], timestamp):
-            output.append(item.create_recorded_data_element())
+        if item.update_values([values[item.name]], [timestamp]):
+            output.append(item)
 
     if isinstance(output, list):
-        for r in output:
-            r.date_saved = now()
-        RecordedData.objects.bulk_create(output)
+        Variable.objects.write_multiple(items=output, date_saved=now())
 
     return do_response(True, "success")
