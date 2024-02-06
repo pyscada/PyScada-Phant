@@ -31,7 +31,7 @@ setup(
     platforms=["OS Independent"],
     classifiers=CLASSIFIERS,
     install_requires=[
-        "pyscada>=0.8.0",
+        "pyscada>=0.8.2",
     ],
     packages=find_namespace_packages(exclude=["project", "project.*"]),
     include_package_data=True,
